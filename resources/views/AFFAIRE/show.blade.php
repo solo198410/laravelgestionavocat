@@ -44,21 +44,16 @@
 <div class="form-row">
     <div class="form-group col-md-4">
       <label for="first_name">Nom</label>
-      <input type="text" v-validate.persist="'required|min:3'" 
-      :class="{'form-control': true, 'is-invalid':errors.has('first_name')}" name="first_name" v-model="client.first_name" placeholder="name ...">
-      <div class="invalid-feedback">
-      <label v-show="errors.has('first_name')">@{{ errors.first('first_name')}}</label>
-      </div>
+      <input type="text" class="form-control" name="first_name" v-model="client.first_name" placeholder="name ...">
     </div>
     <div class="form-group col-md-4">
       <label for="last_name">Prénom</label>
-      <input type="text" class="form-control" name="last_name" v-model="client.last_name" placeholder="prénom ...">
+      <input type="text" class="form-control" name="last_name" v-model="client.last_name" placeholder="prÃ©nom ...">
     </div>
 	
   <div class="form-group col-md-4">
       <label for="birthday">Date Naissance</label>
-      <input v-validate.persist = "'required'" type="date" class="form-control" name="birthday" v-model="client.birthday">
-      <label v-show="errors.has('birthday')">@{{ errors.first('birthday')}}</label>
+      <input type="date" class="form-control" name="birthday" v-model="client.birthday">
     </div>
   </div>
   
@@ -67,14 +62,13 @@
   <div class="input-group-prepend">
   <label  class="input-group-text" for="type">Type</label>
   </div>
-      <select  v-validate.persist = "'required'" class="custom-select" id="type" name="type" v-model="client.type">
+      <select  class="custom-select" id="type" name="type" v-model="client.type">
       <option value="" selected>Choisissez...</option>
       <option value="demandeur">demandeur</option>
     <option value="défendeur">défendeur</option>
     <option value="accusé">accusé</option>
 	<option value="autre">autre</option>
   </select>
-      <label v-show="errors.has('type')">@{{ errors.first('type')}}</label>
     </div>
   </div>
   
@@ -85,15 +79,15 @@
     <div class="form-row">
     <div class="form-group col-md-4">
       <label for="father_name">Prénom du père</label>
-      <input type="text" class="form-control" name="father_name" v-model="client.father_name" placeholder="prénom du père ...">
+      <input type="text" class="form-control" name="father_name" v-model="client.father_name" placeholder="prÃ©nom du pÃ¨re ...">
     </div>
     <div class="form-group col-md-4">
       <label for="mother_first_name">Nom de la Mère</label>
-      <input type="text" class="form-control" name="mother_first_name" v-model="client.mother_first_name" placeholder="nom de la mère ...">
+      <input type="text" class="form-control" name="mother_first_name" v-model="client.mother_first_name" placeholder="nom de la mÃ¨re ...">
     </div>
 	<div class="form-group col-md-4">
       <label for="mother_last_name">Prénom de la mère</label>
-      <input type="text" class="form-control" name="mother_last_name" v-model="client.mother_last_name" placeholder="prénom de la mère ...">
+      <input type="text" class="form-control" name="mother_last_name" v-model="client.mother_last_name" placeholder="prÃ©nom de la mÃ¨re ...">
     </div>
   </div>
   
@@ -114,15 +108,14 @@
   <div class="input-group-prepend">
   <label  class="input-group-text" for="type">Type</label>
   </div>
-      <select  v-validate.persist = "'required'" class="custom-select" id="type" name="type" v-model="client.type">
+      <select class="custom-select" id="type" name="type" v-model="client.type">
       <option value="" selected>Choisissez...</option>
       <option value="demandeur">demandeur</option>
     <option value="défendeur">défendeur</option>
     <option value="accusé">accusé</option>
 	<option value="autre">autre</option>
   </select>
-      <label v-show="errors.has('type')">@{{ errors.first('type')}}</label>
-    </div>
+       </div>
   </div>
 </div>
 <div v-if = "client.is_moral != 2">
@@ -226,33 +219,30 @@
 <div class="form-row">
     <div class="form-group col-md-4">
       <label for="first_name">Nom</label>
-      <input v-validate.persist = "'required'" type="text" class="form-control" name="first_name" v-model="adversaire.first_name" placeholder="name ...">
-      <label v-show="errors.has('first_name')">@{{ errors.first('first_name')}}</label>
-      </div>
+      <input type="text" class="form-control" id="first_name" v-model="adversaire.first_name" placeholder="name ...">
+    </div>
     <div class="form-group col-md-4">
       <label for="last_name">Prénom</label>
-      <input v-validate.persist = "'required'" type="text" class="form-control" name="last_name" v-model="adversaire.last_name" placeholder="prénom ...">
-      <label v-show="errors.has('last_name')">@{{ errors.first('last_name')}}</label>
+      <input type="text" class="form-control" id="last_name" v-model="adversaire.last_name" placeholder="prÃ©nom ...">
     </div>
 	<div class="form-group col-md-4">
       <label for="birthday">Date Naissance</label>
-      <input v-validate.persist = "'required'" type="date" class="form-control" name="birthday" v-model="adversaire.birthday">
-      <label v-show="errors.has('birthday')">@{{ errors.first('birthday')}}</label>
+      <input type="date" class="form-control" id="birthday" v-model="adversaire.birthday">
     </div>
   </div>
+
   <div class="form-group col-md-6">
   <div class="input-group mb-3">
   <div class="input-group-prepend">
   <label  class="input-group-text" for="type">Type</label>
   </div>
-      <select  v-validate.persist = "'required'" class="custom-select" id="type" name="type" v-model="client.type">
+      <select class="custom-select" id="type" name="type" v-model="adversaire.type">
       <option value="" selected>Choisissez...</option>
       <option value="demandeur">demandeur</option>
     <option value="défendeur">défendeur</option>
     <option value="accusé">accusé</option>
 	<option value="autre">autre</option>
   </select>
-      <label v-show="errors.has('type')">@{{ errors.first('type')}}</label>
     </div>
   </div>
 
@@ -264,15 +254,15 @@
     <div class="form-row">
     <div class="form-group col-md-4">
       <label for="father_name">Prénom du père</label>
-      <input type="text" class="form-control" id="father_name" v-model="adversaire.father_name" placeholder="prénom du père ...">
+      <input type="text" class="form-control" id="father_name" v-model="adversaire.father_name" placeholder="prÃ©nom du pÃ¨re ...">
     </div>
     <div class="form-group col-md-4">
       <label for="mother_first_name">Nom de la Mère</label>
-      <input type="text" class="form-control" id="mother_first_name" v-model="adversaire.mother_first_name" placeholder="nom de la mère ...">
+      <input type="text" class="form-control" id="mother_first_name" v-model="adversaire.mother_first_name" placeholder="nom de la mÃ¨re ...">
     </div>
 	<div class="form-group col-md-4">
       <label for="mother_last_name">Prénom de la mère</label>
-      <input type="text" class="form-control" id="mother_last_name" v-model="adversaire.mother_last_name" placeholder="prénom de la mère ...">
+      <input type="text" class="form-control" id="mother_last_name" v-model="adversaire.mother_last_name" placeholder="prÃ©nom de la mÃ¨re ...">
     </div>
   </div>
   
@@ -293,14 +283,13 @@
   <div class="input-group-prepend">
   <label  class="input-group-text" for="type">Type</label>
   </div>
-      <select  v-validate.persist = "'required'" class="custom-select" id="type" name="type" v-model="client.type">
+      <select class="custom-select" id="type" name="type" v-model="adversaire.type">
       <option value="" selected>Choisissez...</option>
       <option value="demandeur">demandeur</option>
     <option value="défendeur">défendeur</option>
     <option value="accusé">accusé</option>
 	<option value="autre">autre</option>
   </select>
-      <label v-show="errors.has('type')">@{{ errors.first('type')}}</label>
     </div>
   </div>
 
@@ -316,7 +305,6 @@
 </div>
 </form>
 	</div><br>
-
 <!-- form affichage des adversaires -->
         
         
@@ -338,7 +326,7 @@
     
     <label for="type" class="col-sm-1 col-form-label">Type</label>
     <div class="col-sm-2">
-    <input class="form-control" type="text" v-model="client.type" readonly> </div>
+    <input class="form-control" type="text" v-model="adversaire.type" readonly> </div>
     </div>
     </div>
     <div v-if="adversaire.is_moral == 1">
@@ -356,7 +344,7 @@
     <div class="form-group row">
     <label for="type" class="col-sm-2 col-form-label">Type</label>
     <div class="col-sm-2">
-    <input class="form-control" type="text" v-model="client.type" readonly> </div></div>
+    <input class="form-control" type="text" v-model="adversaire.type" readonly> </div></div>
     </div>
             </li>
         </ul>

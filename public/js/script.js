@@ -104,7 +104,7 @@ var app = new Vue({
         getData: function () {
             axios.get(window.Laravel.url + '/getdata/' + window.Laravel.idAffaire)
                 .then(response => {
-                    console.log('response: ', response.data);
+                    //console.log('response: ', response.data);
                     this.clients = response.data.clients;
                     this.adversaires = response.data.adversaires;
                     this.seances = response.data.seances;

@@ -17,9 +17,9 @@ class CreateFraisTable extends Migration
             $table->id();
             $table->integer('affaire_id')->unsigned();
             $table->date('date_versement');
-            $table->Decimal('montant_total');
-            $table->Decimal('versement');
-            $table->Decimal('reste');
+            $table->double('montant_total');
+            $table->double('versement');
+            $table->double('reste');
             $table->foreign('affaire_id')->references('id')->on('affaires');
             $table->timestamps();
         });

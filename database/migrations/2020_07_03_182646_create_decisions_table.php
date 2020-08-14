@@ -17,11 +17,13 @@ class CreateDecisionsTable extends Migration
             $table->id();
             $table->integer('affaire_id')->unsigned();
             $table->date('date_decision');
+            $table->string('type');
             $table->string('decision');
             $table->string('summary');
             $table->string('authority');
-            $table->string('location1');
-            $table->string('location2');
+            $table->date('date_recours');
+            //$table->string('location1');
+            //$table->string('location2');
             $table->foreign('affaire_id')->references('id')->on('affaires');
             $table->timestamps();
         });

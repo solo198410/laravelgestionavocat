@@ -16,6 +16,7 @@ class CreateClientsTable extends Migration
         Schema::create('clients', function (Blueprint $table) {
             $table->id();
             $table->integer('affaire_id')->unsigned();
+            $table->tinyInteger('is_adversaire');
             $table->tinyInteger('is_moral');
             $table->string('first_name');
             $table->string('last_name');
@@ -27,6 +28,7 @@ class CreateClientsTable extends Migration
             $table->string('moral_person_name');
             $table->string('moral_person_description');
             $table->timestamps();
+            $table->string('type');
             $table->foreign('affaire_id')->references('id')->on('affaires');
         });
     }

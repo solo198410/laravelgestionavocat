@@ -16,13 +16,15 @@ class CreateAffairesTable extends Migration
         Schema::create('affaires', function (Blueprint $table) {
             $table->Increments('id');
             $table->biginteger('user_id')->unsigned();
-            $table->string('presentation');
+            $table->text('presentation');
             $table->string('type');
-            $table->integer('frais');
+            $table->double('frais_affaire');
             $table->string('resultat');
             $table->timestamps();
             $table->datetime('deleted_at')->nullable();
             $table->foreign('user_id')->references('id')->on('users');
+            $table->string('numero_affaire');
+            $table->string('autorite_jud_comp');
         });
     }
 

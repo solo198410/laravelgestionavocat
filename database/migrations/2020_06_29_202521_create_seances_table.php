@@ -19,7 +19,7 @@ class CreateSeancesTable extends Migration
             $table->string('subject');
             $table->string('content');
             $table->date('date_seance');
-            $table->string('lieu');
+            //$table->string('lieu')->nullable();
             $table->foreign('affaire_id')->references('id')->on('affaires');
             $table->timestamps();
         });

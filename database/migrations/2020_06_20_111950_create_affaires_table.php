@@ -17,9 +17,9 @@ class CreateAffairesTable extends Migration
             $table->Increments('id');
             $table->biginteger('user_id')->unsigned();
             $table->text('presentation');
-            $table->string('type');
+            //$table->string('type');
             $table->double('frais_affaire');
-            $table->string('resultat');
+            //$table->string('resultat');
             $table->timestamps();
             $table->datetime('deleted_at')->nullable();
             $table->foreign('user_id')->references('id')->on('users');

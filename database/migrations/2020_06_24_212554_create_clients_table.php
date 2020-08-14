@@ -21,10 +21,10 @@ class CreateClientsTable extends Migration
             $table->string('first_name');
             $table->string('last_name');
             $table->date('birthday');
-            $table->string('domicile');
-            $table->string('father_name');
-            $table->string('mother_first_name');
-            $table->string('mother_last_name');
+            $table->string('domicile')->nullable();
+            $table->string('father_name')->nullable();
+            $table->string('mother_first_name')->nullable();
+            $table->string('mother_last_name')->nullable();
             $table->string('moral_person_name');
             $table->string('moral_person_description');
             $table->timestamps();

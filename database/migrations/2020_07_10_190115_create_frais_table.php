@@ -19,7 +19,7 @@ class CreateFraisTable extends Migration
             $table->date('date_versement');
             $table->double('montant_total');
             $table->double('versement');
-            $table->double('reste');
+            //$table->double('reste');
             $table->foreign('affaire_id')->references('id')->on('affaires');
             $table->timestamps();
         });

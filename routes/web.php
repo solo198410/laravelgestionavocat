@@ -57,3 +57,6 @@ Route::delete('/deletefrai/{id}', 'SgcaController@deleteFrai');
 Route::get('rendez_vous', 'SgcaController@rendez_vous');
 Route::get('affaire', 'SgcaController@index_');
 Route::get('creances', 'SgcaController@creances');
+
+Route::get('contact-us', 'ContactController@getContact');
+Route::post('contact-us', 'ContactController@saveContact');

@@ -27,6 +27,11 @@
                             @endif
                         @else
                         <li class="nav-item dropdown">
+                                <a class="nav-link" href="{{ url('creances') }}">
+                                  Créances <!--{{ Auth::user()->name }} <span class="caret"></span>-->
+                                </a>
+                                </li>
+                                <li class="nav-item dropdown">
                                 <a class="nav-link" href="{{ url('affaires') }}">
                                    mes Affaires <!--{{ Auth::user()->name }} <span class="caret"></span>-->
                                 </a>
@@ -34,6 +39,11 @@
                                 <li class="nav-item dropdown">
                                 <a class="nav-link" href="{{ url('rendez_vous') }}">
                                   Rendez Vous <!--{{ Auth::user()->name }} <span class="caret"></span>-->
+                                </a>
+                                </li>
+                                <li class="nav-item dropdown">
+                                <a class="nav-link" href="{{ url('contact-us') }}">
+                                  Contact us <!--{{ Auth::user()->name }} <span class="caret"></span>-->
                                 </a>
                                 </li>
                         <li class="nav-item dropdown">

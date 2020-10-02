@@ -36,7 +36,7 @@ class ContactUsFormController extends Controller {
             'user_query' => $request->get('message'),
         ), function($message) use ($request){
             $message->from($request->email);
-            $message->to('ibrahimbouhacida84@gmail.com', 'Admin')->subject($request->get('subject'));
+            $message->to('ibrahimbouhacida84@gmail.com');//, 'Admin')->subject($request->get('subject'));
         });
 
         session()->flash('success_sendingMail', 'We have received your message and would like to thank you for writing to us.');

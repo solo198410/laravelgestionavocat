@@ -2,6 +2,7 @@
 
 @section('content')
 
+
 <div class="container">
 @foreach($affaires as $affaire)
 <div class="alert alert-success alert-block">

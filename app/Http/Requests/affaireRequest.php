@@ -28,7 +28,19 @@ class affaireRequest extends FormRequest
             //'type' => 'required',
             'frais_affaire' => 'required',
             //'resultat' => 'required'
-            'autorite_jud_comp' => 'required|max:100'
+            'autorite_jud_comp' => 'required|max:100',
+            //'name' => 'required|max: 255',
+             //'email' => 'required|email|max: 255',
+             //'message' => 'required',
         ];
     }
+
+    /*
+    public function messages(){
+       return [
+       'required' => 'The :attribute field is required.',
+       'email' => 'The :attribute must be a valid :attribute address'
+       ];
+     }
+     */
 }

@@ -58,5 +58,22 @@ Route::get('rendez_vous', 'SgcaController@rendez_vous');
 Route::get('affaire', 'SgcaController@index_');
 Route::get('creances', 'SgcaController@creances');
 
-Route::get('contact-us', 'ContactController@getContact');
-Route::post('contact-us', 'ContactController@saveContact');
+//Route::get('contact-us', 'ContactController@getContact');
+//Route::post('contact-us', 'ContactController@saveContact');
+
+/*Route::get('/contact-us', 'ContactUsController@index');
+Route::post('/contact-us', 'ContactUsController@handleForm');*/
+
+/*Route::get("message", "MessageController@formMessageGoogle");
+Route::post("message", "MessageController@sendMessageGoogle")->name('send.message.google');*/
+
+// Render in view
+Route::get('/contact', [
+    'uses' => 'ContactUsFormController@createForm'
+]);
+
+// Post form data
+Route::post('/contact', [
+    'uses' => 'ContactUsFormController@ContactUsForm',
+    'as' => 'contact.store'
+]);

@@ -42,7 +42,7 @@
                                 </a>
                                 </li>
                                 <li class="nav-item dropdown">
-                                <a class="nav-link" href="{{ url('contact-us') }}">
+                                <a class="nav-link" href="{{ url('/contact') }}">
                                   Contact us <!--{{ Auth::user()->name }} <span class="caret"></span>-->
                                 </a>
                                 </li>

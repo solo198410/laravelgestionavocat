@@ -3,6 +3,13 @@
         {{ session()->get('success') }}
         </div>
         @endif
+
+        @if(session()->has('success_sendingMail'))
+        <div class="alert alert-success">
+        {{ session()->get('success_sendingMail') }}
+        </div>
+        @endif
+        
 <!---->
         <!--@if(session()->has('rendez_vous'))
         <div class="alert alert-success alert-block">

@@ -39,7 +39,8 @@ class ContactUsFormController extends Controller {
             $message->to('ibrahimbouhacida84@gmail.com', 'Admin')->subject($request->get('subject'));
         });
 
-        return back()->with('success', 'We have received your message and would like to thank you for writing to us.');
+        session()->flash('success_sendingMail', 'We have received your message and would like to thank you for writing to us.');
+        return back();
     }
 
 }

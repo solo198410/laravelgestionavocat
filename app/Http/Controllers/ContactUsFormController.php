@@ -28,15 +28,16 @@ class ContactUsFormController extends Controller {
         Contact::create($request->all());
 
         //  Send mail to admin
-        \Mail::send('AFFAIRE.mail', array(
+        \Mail::send('AFFAIRE.mail',
+        array(
             'name' => $request->get('name'),
             'email' => $request->get('email'),
-            'phone_number' => $request->get('phone'),
+            'phone_number' => $request->get('phone_number'),
             'subject' => $request->get('subject'),
             'user_query' => $request->get('message'),
         ), function($message) use ($request){
             $message->from($request->email);
-            $message->to('ibrahimbouhacida84@gmail.com');//, 'Admin')->subject($request->get('subject'));
+            $message->to('codingdriver15@gmail.com');//, 'Admin')->subject($request->get('subject'));
         });
 
         session()->flash('success_sendingMail', 'We have received your message and would like to thank you for writing to us.');

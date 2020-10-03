@@ -8,6 +8,6 @@ Name: {{ $name }} <br>
 Email: {{ $email }} <br>
 Phone: {{ $phone_number }} <br>
 Subject: {{ $subject }} <br>
-Message: {{ $user_query }} <br><br>
+Message: {{ $user_message }} <br><br>
 
 Thanks

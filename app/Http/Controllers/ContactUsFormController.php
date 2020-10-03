@@ -43,8 +43,8 @@ class ContactUsFormController extends Controller {
             'user_message' => $request->get('message'),
         ), function($message) use ($request)
         {
-            $message->from($request->get('email'));
-            $message->to('codingdriver15@gmail.com');//, 'Admin')->subject($request->get('subject'));
+            $message->from($request->email);
+            $message->to('barhoum0000@hotmail.com');//, 'Admin')->subject($request->get('subject'));
         });
 
         session()->flash('success_sendingMail', 'We have received your message and would like to thank you for writing to us.');

@@ -24,11 +24,12 @@ class affaireRequest extends FormRequest
     public function rules()
     {
         return [
-            'presentation' => 'required|min:20',
+            'presentation' => 'required|min:10',
             //'type' => 'required',
             'frais_affaire' => 'required',
             //'resultat' => 'required'
-            'autorite_jud_comp' => 'required|max:100',
+            //'autorite_jud_comp' => 'required|max:100',
+            'autoritesjudiciaire_id' => 'required',
             //'name' => 'required|max: 255',
              //'email' => 'required|email|max: 255',
              //'message' => 'required',

@@ -2,7 +2,9 @@
 
 namespace App\Http\Controllers;
 
+//use Illuminate\Support\Facades\DB;
 use Illuminate\Http\Request;
+use App\Avocat, App\Skill, App\Detail, App\Typedetail, App\Wilaya;
 
 class HomeController extends Controller
 {
@@ -11,10 +13,10 @@ class HomeController extends Controller
      *
      * @return void
      */
-    public function __construct()
+    /*public function __construct()
     {
         $this->middleware('auth');
-    }
+    }*/
 
     /**
      * Show the application dashboard.
@@ -25,4 +27,24 @@ class HomeController extends Controller
     {
         return view('home');
     }
+
+    public function welcome(Request $request)
+    {
+        if ($request->input('title') != '' || $request->input('wilaya_id') != ''){
+            $listavocat = Avocat::where([
+                ['title', 'like', '%'.$request->input("title").'%'],
+                ['wilaya_id', 'like', '%'.$request->input("wilaya_id").'%'],
+                ])->get();
+        }
+        else {
+            $listavocat = Avocat::all();
+        }
+        return view('INTERNAUTE.accueil', ['listavocat' => $listavocat]);
+        }
+        
+        public function detail($id)
+    {
+            $avocat = Avocat::find($id);
+        return view('INTERNAUTE.show', ['avocat' => $avocat]);
+        }
 }

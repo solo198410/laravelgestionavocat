@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Contact Us
+@endsection
+
 @section('content')
 
 
@@ -44,9 +48,9 @@
         <label>Phone</label>
         <input type="text" class="form-control {{ $errors->has('phone_number') ? 'error' : '' }}" name="phone_number" id="phone_number">
 
-        @if ($errors->has('phone'))
+        @if ($errors->has('phone_number'))
         <div class="error">
-            {{ $errors->first('phone') }}
+            {{ $errors->first('phone_number') }}
         </div>
         @endif
     </div>

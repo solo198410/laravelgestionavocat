@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Liste des Affaires par numéro de l'affaire
+@endsection
+
 @section('content')
 
 <div class="container">
@@ -10,7 +14,7 @@
         <a href="{{ url('affaires/create') }}" class="btn btn-success">Nouvelle Affaire</a></div>
         <form action="{{ url('affaire') }}" method="GET" class="form-inline my-2 my-lg-0">
                     @csrf
-      <input name="numero_affaire" class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
+      <input name="numero_affaire" class="form-control mr-sm-2" type="text" placeholder="Numéro" aria-label="Search">
       <button class="btn btn-outline-success my-2 my-sm-0" type="submit">Search</button>
     </form>
     <br/>
@@ -31,30 +35,38 @@
             @foreach($affaires as $affaire)
                  <tr>
                     <td>{{ $affaire->numero_affaire }}</td>
-                    <td>{{ $affaire->autorite_jud_comp }}</td>
-                    <td  nowrap="nowrap">@foreach($clients as $client)
-                    <?php if($client->affaire_id == $affaire->id && $client->is_adversaire == 0)
+                    <td>{{ $affaire->autoritesjudiciaire->name }}</td>
+                    
+                    <td>@foreach ($affaire->clients as $client)
+                    <?php if($client->is_adversaire == 0)
                     {
                         if ($client->is_moral == 0){
                             echo ($client->first_name ." ". $client->last_name. "<br/>");
                         } else echo ($client->moral_person_name. "<br/>");
                         
-                    }?>
-                    @endforeach</td>
-                    <td  nowrap="nowrap">@foreach($clients as $client)
-                    <?php if($client->affaire_id == $affaire->id && $client->is_adversaire == 1)
+                    }?>          
+                    @endforeach
+                    </td>
+                    
+                    <td>@foreach ($affaire->clients as $client)
+                    <?php if($client->is_adversaire == 1)
                     {
                         if ($client->is_moral == 0){
                             echo ($client->first_name ." ". $client->last_name. "<br/>");
                         } else echo ($client->moral_person_name. "<br/>");
-                    }?>
-                    @endforeach</td>
-                    <td  nowrap="nowrap">@foreach($decisions as $decision)
-                    <?php if($decision->affaire_id == $affaire->id)
-                    {
-                        echo ($decision->summary ."<br/>". $decision->type. " du ". $decision->date_decision. "<br/>");
-                    }?>
-                    @endforeach</td>
+                        
+                    }?>          
+                    @endforeach
+                    </td>
+
+                    
+                    <td>@foreach ($affaire->decisions as $decision)
+                    {{ $decision->summary }}<?php /*
+                        echo ($decision->summary);
+                    */?>        
+                    @endforeach
+                    </td>
+                    
                     <td nowrap="nowrap">
                     <form action="{{ url('affaires/'.$affaire->id) }}" method="POST">
                     @csrf

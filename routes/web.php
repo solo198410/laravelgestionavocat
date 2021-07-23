@@ -13,6 +13,8 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+
+
 /*Route::get('affaires', 'SgcaController@index');
 Route::get('affaires/create', 'SgcaController@create');
 Route::post('affaires', 'SgcaController@store');
@@ -21,12 +23,27 @@ Route::put('affaires/{id}', 'SgcaController@update');
 Route::delete('affaires/{id}', 'SgcaController@destroy');*/
 
 Route::resource('affaires', 'SgcaController');
+Route::resource('avocats', 'AvocatController');
 Auth::routes();
 
-Route::get('/home', 'HomeController@index')->name('home');
-Route::get('/', function(){
-    return view('welcome'); 
-});//'HomeController@index')->name('home');
+//Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/', 'HomeController@welcome');
+Route::get('/detail/{id}', 'HomeController@detail');
+
+
+/*Route::get('/', function(){
+    return view('welcome');
+    //$e = Event::get();
+    //$e= $e[0];
+
+    /*dd($e->startDateTime->toDateTimeString());
+    dd($e->summary);*/
+    //dd($e);
+
+//});*/
+
+
+//'HomeController@index')->name('home');
 //Route::get('/getclients/{id}', 'SgcaController@getClients');
 Route::get('/getdata/{id}', 'SgcaController@getData');
 Route::post('/addclient', 'SgcaController@addClient');
@@ -54,9 +71,22 @@ Route::post('/addfrai', 'SgcaController@addFrai');
 Route::put('/updatefrai', 'SgcaController@updateFrai');
 Route::delete('/deletefrai/{id}', 'SgcaController@deleteFrai');
 
-Route::get('rendez_vous', 'SgcaController@rendez_vous');
+Route::get('rendez_vous', 'SgcaController@rendez_vouss');
 Route::get('affaire', 'SgcaController@index_');
 Route::get('creances', 'SgcaController@creances');
+
+// avocats annuaires
+
+Route::get('/getdatavocat/{id}', 'AvocatController@getData');
+Route::post('/addskill', 'AvocatController@addSkill');
+Route::put('/updateskill', 'AvocatController@updateSkill');
+Route::delete('/deleteskill/{id}', 'AvocatController@deleteSkill');
+
+//details
+
+Route::post('/adddetail', 'AvocatController@addDetail');
+Route::put('/updatedetail', 'AvocatController@updateDetail');
+Route::delete('/deletedetail/{id}', 'AvocatController@deleteDetail');
 
 //Route::get('contact-us', 'ContactController@getContact');
 //Route::post('contact-us', 'ContactController@saveContact');

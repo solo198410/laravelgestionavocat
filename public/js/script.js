@@ -21,7 +21,7 @@ var app = new Vue({
             first_name: '',
             last_name: '',
             birthday: '',
-            type: '',
+            type_id: '',
             domicile: '',
             father_name: '',
             mother_first_name: '',
@@ -37,7 +37,7 @@ var app = new Vue({
             first_name: '',
             last_name: '',
             birthday: '',
-            type: '',
+            type_id: '',
             domicile: '',
             father_name: '',
             mother_first_name: '',
@@ -144,7 +144,7 @@ var app = new Vue({
                             first_name: '',
                             last_name: '',
                             birthday: '',
-                            type: '',
+                            type_id: '',
                             domicile: '',
                             father_name: '',
                             mother_first_name: '',
@@ -178,7 +178,7 @@ var app = new Vue({
                             first_name: '',
                             last_name: '',
                             birthday: '',
-                            type: '',
+                            type_id: '',
                             domicile: '',
                             father_name: '',
                             mother_first_name: '',
@@ -225,7 +225,7 @@ var app = new Vue({
                             first_name: '',
                             last_name: '',
                             birthday: '',
-                            type: '',
+                            type_id: '',
                             domicile: '',
                             father_name: '',
                             mother_first_name: '',
@@ -258,7 +258,7 @@ var app = new Vue({
                             first_name: '',
                             last_name: '',
                             birthday: '',
-                            type: '',
+                            type_id: '',
                             domicile: '',
                             father_name: '',
                             mother_first_name: '',
@@ -319,7 +319,6 @@ var app = new Vue({
             this.seance = seance;
         },
         updateSeance: function () {
-            console.log("cccccccccccc");
             axios.put(window.Laravel.url + '/updateseance', this.seance)
                 .then(response => {
                     if (response.data.etat) {

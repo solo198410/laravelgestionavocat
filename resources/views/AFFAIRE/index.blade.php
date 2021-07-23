@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Liste des Affaires par date début et date fin
+@endsection
+
 @section('content')
 
 <div class="container">
@@ -49,30 +53,42 @@
                  <tr>
                  <td>{{ $affaire->numero_affaire }}</td>
                     <!--<td>{{ $affaire->presentation }}</td>-->
-                    <td>{{ $affaire->autorite_jud_comp }}</td>
-                    <td  nowrap="nowrap">@foreach($clients as $client)
-                    <?php if($client->affaire_id == $affaire->id && $client->is_adversaire == 0)
+                    <td>{{ $affaire->autoritesjudiciaire->name }}</td>
+                    
+                    <td>@foreach ($affaire->clients as $client)
+                    <?php if($client->is_adversaire == 0)
                     {
                         if ($client->is_moral == 0){
                             echo ($client->first_name ." ". $client->last_name. "<br/>");
                         } else echo ($client->moral_person_name. "<br/>");
                         
-                    }?>
-                    @endforeach</td>
-                    <td  nowrap="nowrap">@foreach($clients as $client)
-                    <?php if($client->affaire_id == $affaire->id && $client->is_adversaire == 1)
+                    }?>          
+                    @endforeach
+                    </td>
+
+                    
+                    <td>@foreach ($affaire->clients as $client)
+                    <?php if($client->is_adversaire == 1)
                     {
                         if ($client->is_moral == 0){
                             echo ($client->first_name ." ". $client->last_name. "<br/>");
                         } else echo ($client->moral_person_name. "<br/>");
-                    }?>
-                    @endforeach</td>
-                    <td  nowrap="nowrap">@foreach($decisions as $decision)
-                    <?php if($decision->affaire_id == $affaire->id)
-                    {
-                        echo ($decision->summary ."<br/>". $decision->type. " du ". $decision->date_decision. "<br/>");
-                    }?>
-                    @endforeach</td>
+                        
+                    }?>          
+                    @endforeach
+                    </td>
+                    
+                    
+                    
+                    
+                    <td>@foreach ($affaire->decisions as $decision)
+                    {{ $decision->summary }}
+                    <?php /*
+                        echo ($decision->summary);
+                    */?>         
+                    @endforeach
+                    </td>
+                    
                     <!--<td>{{ $affaire->resultat}}</td>-->
                     <!--<td>{{ $affaire->frais}}</td>-->
                     <td nowrap="nowrap">

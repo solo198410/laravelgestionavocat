@@ -1,5 +1,9 @@
 @extends('layouts.app')
 
+@section('title')
+Edition Affaire {{ $affaire->numero_affaire }}
+@endsection
+
 @section('content')
 
 <div class="container">
@@ -30,18 +34,57 @@
 </ul>
 @endif
 				</div>
-				<div class="form-group">
-					<label for="autorite_jud_comp">l'autorité judiciaire compétente</label>
-					<input name="autorite_jud_comp" class="form-control @if($errors->get('autorite_jud_comp')) is-invalid @endif"
-					value="{{ $affaire->autorite_jud_comp }}"></input>
-					@if($errors->get('autorite_jud_comp'))
+				
+				
+				<div class="form-row">
+<div class="form-group col-md-3">
+  <label  for="autoritesjudiciaire_id">l'autorité judiciaire compétente</label>
+      <select  class="form-control @if ($errors->get('autoritesjudiciaire_id')) is-invalid @endif"
+	  name="autoritesjudiciaire_id" id="autoritesjudiciaire_id">
+      <option value="{{ $affaire->autoritesjudiciaire_id }}" selected>{{ $affaire->autoritesjudiciaire->name }}</option>
+	  @foreach($autoritesjudiciaires as $autoritesjudiciaire)
+<option value = "{{ $autoritesjudiciaire->id }}"> {{ $autoritesjudiciaire->name }}</option> 
+@endforeach
+  </select>
+
+  <div class="invalid-feedback">
+  @if($errors->get('autoritesjudiciaires_id'))
 <ul>
-@foreach($errors->get('autorite_jud_comp') as $message)
+@foreach($errors->get('autoritesjudiciaires_id') as $message)
 <li>{{ $message }}</li>
 @endforeach
 </ul>  
 @endif
-				</div>
+</div></div>
+
+				<div class="form-group col-md-3">
+					<label for="adresse">adresse</label>
+					<input name="adresse" class="form-control @if($errors->get('adresse')) is-invalid @endif" value="{{ $affaire->adresse }}"></input>
+					<div class="invalid-feedback">
+					@if($errors->get('adresse'))
+<ul>
+@foreach($errors->get('adresse') as $message)
+<li>{{ $message }}</li>
+@endforeach
+</ul>  
+@endif
+</div></div>
+
+
+</div>
+
+				<!--<div class="form-group">
+					<label for="autoritesjudiciaires_id">l'autorité judiciaire compétente</label>
+					<input name="autoritesjudiciaires_id" class="form-control @if($errors->get('autoritesjudiciaires_id')) is-invalid @endif"
+					value="{{ $affaire->autoritesjudiciaires_id }}"></input>
+					@if($errors->get('autoritesjudiciaires_id'))
+<ul>
+@foreach($errors->get('autoritesjudiciaires_id') as $message)
+<li>{{ $message }}</li>
+@endforeach
+</ul>  
+@endif
+				</div>-->
 
 				<!--<div class="form-row">
 				<div class="form-group col-md-6">
@@ -107,7 +150,7 @@
 </ul>
 @endif
 				</div>-->
-				<div class="form-group">
+				<div class="form-group col-md-2">
 					<label for="frais_affaire">Frais</label>
 					<input type = "text" name="frais_affaire" class="form-control @if($errors->get('frais_affaire')) is-invalid @endif"
 					value="{{ $affaire->frais_affaire }}"></input>

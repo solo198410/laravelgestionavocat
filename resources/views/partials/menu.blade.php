@@ -1,4 +1,5 @@
-<nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
+<!-- navbar navbar-expand-md navbar-light bg-white shadow-sm -->
+<nav class="navbar navbar-expand-lg sticky-top navbar-dark bg-primary">
             <div class="container">
                 <a class="navbar-brand" href="{{ url('/') }}">
                     {{ config('app.name', 'Laravel') }}
@@ -17,7 +18,29 @@
                     <ul class="navbar-nav ml-auto">
                         <!-- Authentication Links -->
                         @guest
-                            <li class="nav-item">
+                        <li class="nav-item dropdown">
+                                
+                                  <span class="nav-link">Tél: 213771807535</span>
+                                
+                                </li>
+                                
+                                @endguest
+
+                        <li class="nav-item dropdown">
+                                <a class="nav-link" href="{{ url('/contact') }}">
+                                  Contact
+                                </a>
+                                </li>
+
+                        @guest
+
+                        <li class="nav-item dropdown">
+                                <a class="nav-link" href="{{ url('affaires') }}">
+                                  Espace Avocat
+                                </a>
+                                </li>
+                                
+                                <li class="nav-item">
                                 <a class="nav-link" href="{{ route('login') }}">{{ __('Login') }}</a>
                             </li>
                             @if (Route::has('register'))
@@ -26,9 +49,15 @@
                                 </li>
                             @endif
                         @else
-                        <li class="nav-item dropdown">
+                    
+                        <!--<li class="nav-item dropdown">
                                 <a class="nav-link" href="{{ url('creances') }}">
-                                  Créances <!--{{ Auth::user()->name }} <span class="caret"></span>-->
+                                  Créances <!--{{ Auth::user()->name }} <span class="caret"></span>
+                                </a>
+                                </li>-->
+                                <li class="nav-item dropdown">
+                                <a class="nav-link" href="{{ url('avocats') }}">
+                                  Annuaire
                                 </a>
                                 </li>
                                 <li class="nav-item dropdown">
@@ -36,16 +65,15 @@
                                    mes Affaires <!--{{ Auth::user()->name }} <span class="caret"></span>-->
                                 </a>
                                 </li>
-                                <li class="nav-item dropdown">
+                                <!--<li class="nav-item dropdown">
                                 <a class="nav-link" href="{{ url('rendez_vous') }}">
-                                  Rendez Vous <!--{{ Auth::user()->name }} <span class="caret"></span>-->
+                                  Rendez Vous <!--{{ Auth::user()->name }} <span class="caret"></span>
                                 </a>
-                                </li>
-                                <li class="nav-item dropdown">
-                                <a class="nav-link" href="{{ url('/contact') }}">
-                                  Contact us <!--{{ Auth::user()->name }} <span class="caret"></span>-->
-                                </a>
-                                </li>
+                                </li> -->
+                                
+                    
+                                
+                        
                         <li class="nav-item dropdown">
                                 <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
                                     {{ Auth::user()->name }} <span class="caret"></span>

@@ -9,9 +9,9 @@ use Mail;
 
 class ContactUsFormController extends Controller {
 
-    public function __construct(){
+    /*public function __construct(){
 		$this->middleware('auth');
-    }
+    }*/
     
     // Create Contact Form
     public function createForm(Request $request) {

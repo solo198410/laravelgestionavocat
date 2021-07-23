@@ -6,8 +6,11 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
+use Spatie\GoogleCalendar\Event;
+use Carbon\Carbon;
+//use Illuminate\Support\Carbon;
 
-use App\Affaire, App\User, App\Client, App\Seance, App\Decision, App\Frai;
+use App\Affaire, App\User, App\Client, App\Seance, App\Decision, App\Frai, App\Autoritesjudiciaire, App\Type;
 use App\Http\Requests\affaireRequest;
 
 class SgcaController extends Controller
@@ -16,22 +19,16 @@ class SgcaController extends Controller
 		$this->middleware('auth');
 	}
 
+	//affichage par numéro d'affaire et par user
+
 	public function index_(Request $request){
 		if ($request->input('numero_affaire') != ''){
-			
 		$listaffaire = Auth::user()->affaires()->where('numero_affaire', 'like', '%'.$request->input("numero_affaire").'%')->get();
 		$numero_affaire = array();
 		foreach ($listaffaire as $affaire) {
 			$numero_affaire[] = $affaire->id ;
 		}
-		$listclient = DB::table('clients')
-		->whereIn('affaire_id', $numero_affaire)
-		->get();
-
-		$listdecision = DB::table('decisions')
-		->whereIn('affaire_id', $numero_affaire)
-		->get();
-	return view('AFFAIRE.index_', ['affaires'=>$listaffaire, 'clients'=>$listclient, 'decisions'=>$listdecision]);
+	return view('AFFAIRE.index_', ['affaires'=>$listaffaire]);
 }
 else {
 	return view('AFFAIRE.index_');
@@ -42,6 +39,9 @@ else {
 
 
 	// lister les affaires
+	// affichage par date début date fin
+	//affichage de tout les champs pour admin account
+	
     public function index(Request $request){
 		if ($request->input('date_debut') != '' && $request->input('date_fin') != ''){
 		if(Auth::user()->is_admin){
@@ -54,26 +54,18 @@ else {
 		->get();
 		// Affaire::all();//Affaire::where('user_id', Auth::id())->get();//Affaire::all();
 	}
-	$numero_affaire = array();
-		foreach ($listaffaire as $affaire) {
-			$numero_affaire[] = $affaire->id ;
-		}
-		$listclient = DB::table('clients')
-		->whereIn('affaire_id', $numero_affaire)
-		->get();
-
-		$listdecision = DB::table('decisions')
-		->whereIn('affaire_id', $numero_affaire)
-		->get();
 	//session()->flash('rendez_vous', 'affaire 15/2020 délai de recours dépassé');
-	return view('AFFAIRE.index', ['affaires'=>$listaffaire, 'clients'=>$listclient, 'decisions'=>$listdecision]);
+	return view('AFFAIRE.index', ['affaires'=>$listaffaire]);
 	}
 	else {
 		return view('AFFAIRE.index');
 	}
 }
     public function create(){
-    	return view('AFFAIRE.create');
+		$autoritesjudiciaires = DB::table('autoritesjudiciaires')
+		->get();
+
+    	return view('AFFAIRE.create', ['autoritesjudiciaires'=>$autoritesjudiciaires]);
     }
     public function store(affaireRequest $request){
     	$affaire = new Affaire();
@@ -81,7 +73,8 @@ else {
 		$affaire->numero_affaire = $request->input('numero_affaire');
 		$affaire->presentation = $request->input('presentation');
     	$affaire->frais_affaire = $request->input('frais_affaire');
-    	$affaire->autorite_jud_comp = $request->input('autorite_jud_comp');
+		$affaire->autoritesjudiciaire_id = $request->input('autoritesjudiciaire_id');
+    	//$affaire->autorite_jud_comp = $request->input('autorite_jud_comp');
 
 		$affaire->save();
 		session()->flash('success', 'l\'Affaire a été bien enregistrée!');
@@ -89,14 +82,18 @@ else {
     }
 
     public function edit($id){
+		$autoritesjudiciaires = DB::table('autoritesjudiciaires')
+		->get();
+		
 		$affaire = Affaire::find($id);
 		$this->authorize('update', $affaire);
-		return view('AFFAIRE.edit', ['affaire'=>$affaire]);
+		return view('AFFAIRE.edit', ['affaire'=>$affaire, 'autoritesjudiciaires'=>$autoritesjudiciaires]);
 	}
 	public function show($id){
 		return view('AFFAIRE.show', ['id'=>$id]);
     }
     public function update(affaireRequest $request, $id){
+
 		$affaire = Affaire::find($id);
 		$this->authorize('update', $affaire);
 		$affaire->numero_affaire = $request->input('numero_affaire');
@@ -104,7 +101,7 @@ else {
     	//$affaire->type = $request->input('type');
     	$affaire->frais_affaire = $request->input('frais_affaire');
 		//$affaire->resultat = $request->input('resultat');
-		$affaire->autorite_jud_comp = $request->input('autorite_jud_comp');
+		$affaire->autoritesjudiciaire_id = $request->input('autoritesjudiciaire_id');
 		$affaire->save();
 		session()->flash('success', 'l\'Affaire a été bien modifiée!');
 
@@ -151,7 +148,7 @@ else {
 		$client->first_name = $request->first_name;
 		$client->last_name = $request->last_name;
 		$client->birthday = $request->birthday;
-		$client->type = $request->type;
+		$client->type_id = $request->type_id;
 		$client->domicile = $request->domicile;
 		$client->father_name = $request->father_name;
 		$client->mother_first_name = $request->mother_first_name;
@@ -170,7 +167,7 @@ else {
 		$client->first_name = $request->first_name;
 		$client->last_name = $request->last_name;
 		$client->birthday = $request->birthday;
-		$client->type = $request->type;
+		$client->type_id = $request->type_id;
 		$client->domicile = $request->domicile;
 		$client->father_name = $request->father_name;
 		$client->mother_first_name = $request->mother_first_name;
@@ -197,7 +194,7 @@ public function addAdversaire(Request $request){
 	$adversaire->first_name = $request->first_name;
 	$adversaire->last_name = $request->last_name;
 	$adversaire->birthday = $request->birthday;
-	$adversaire->type = $request->type;
+	$adversaire->type_id = $request->type_id;
 	$adversaire->domicile = $request->domicile;
 	$adversaire->father_name = $request->father_name;
 	$adversaire->mother_first_name = $request->mother_first_name;
@@ -216,7 +213,7 @@ public function updateAdversaire(Request $request){
 	$adversaire->first_name = $request->first_name;
 	$adversaire->last_name = $request->last_name;
 	$adversaire->birthday = $request->birthday;
-	$adversaire->type = $request->type;
+	$adversaire->type_id = $request->type_id;
 	$adversaire->domicile = $request->domicile;
 	$adversaire->father_name = $request->father_name;
 	$adversaire->mother_first_name = $request->mother_first_name;
@@ -265,14 +262,13 @@ public function addDecision(Request $request){
 	$decision = new Decision;
 	$decision->affaire_id = $request->affaire_id;
 	$decision->date_decision = $request->date_decision;
-	$decision->decision = $request->decision;
+	//$decision->decision = $request->decision;
 	$decision->summary = $request->summary;
-	$decision->authority = $request->authority;
+	//$decision->authority = $request->authority;
 	//$decision->location1 = $request->location1;
 	//$decision->location2 = $request->location2;
-	$decision->type = $request->type;
-	$decision->date_recours = date("Y-m-d", strtotime($request->date_decision. " + 15 day"));
-
+	//$decision->type = $request->type;
+	//$decision->date_recours = date("Y-m-d", strtotime($request->date_decision. " + 15 day"));
 	$decision->save();
 	return Response()->json(['etat' => true, 'id'=>$decision->id]);
 }
@@ -326,7 +322,7 @@ public function deleteFrai($id){
 	return Response()->json(['etat' => true]);
 }
 
-public function rendez_vous(){
+/*public function rendez_vous(){
 	$listaffaire = DB::table('affaires')
 			->join('decisions', 'affaires.id', '=', 'decisions.affaire_id')
 			->select('affaires.*', 'decisions.date_decision', 'decisions.type', 'decisions.decision', 'decisions.summary', 'decisions.authority', 'decisions.date_recours')
@@ -338,6 +334,61 @@ public function rendez_vous(){
 //}
 	return view('AFFAIRE.rendez_vous', ['affaires'=>$listaffaire]);
 }
+*/
+/*public function rendez_vous(){
+	$listaffaire = DB::table('affaires')
+			->join('seances', 'affaires.id', '=', 'seances.affaire_id')
+			->select('affaires.*', 'seances.date_seance', 'seances.subject', 'seances.content')
+			->where('seances.date_seance', '>', date("Y-m-d"))
+			->get();
+	return view('AFFAIRE.rendez_vous', ['affaires'=>$listaffaire]);
+}*/
+
+public function rendez_vous(){
+	$seances = Seance::where('date_seance', '>', date("Y-m-d"))
+			->get();
+			/*$listaffaire = Affaire::whereBetween('created_at', [$request->input('date_debut'), $request->input('date_fin')])
+			->get();*/
+	return view('AFFAIRE.rendez_vous', ['seances'=>$seances]);
+}
+
+public function rendez_vouss(){
+
+	$seances = Auth::user()->affaires()
+	->leftJoin('seances', 'affaires.id', '=', 'seances.affaire_id')
+			->select('affaires.numero_affaire', 'seances.date_seance', 'seances.subject', 'seances.affaire_id', 'seances.calendar')
+			->where('date_seance', '>', date("Y-m-d"))
+			->get();
+	/*if ($seances->count()){
+	foreach ($seances as $seance) {
+		if($seance->calendar != '1'){
+				$startDate = Carbon::parse($seance->date_seance);
+				$endDate = (clone $startDate)->addDay();
+
+				Event::create([
+					'name' => $seance->subject,
+					'startDate' => $startDate,
+					'endDate' => $endDate
+					]);
+			}}
+//composer require nesbot/carbon
+//composer dump-autoload
+/*$event = new Event;
+$event->name = 'conciliation';
+$event->description = 'Event description';
+$event->startDateTime = Carbon::now();
+$event->endDateTime = Carbon::now()->addHour();
+
+$event->save();
+
+$e = Event::get();
+	dd($e);*/
+	//return view('AFFAIRE.rendez_vous', ['seances'=>$seances]);
+//}*/
+	return view('AFFAIRE.rendez_vous', ['seances'=>$seances]);
+}
+
+
 public function creances(Request $request){
 	if ($request->input('date_debut') != '' && $request->input('date_fin') != ''){
 	$creances = DB::table('affaires')
@@ -354,20 +405,4 @@ public function creances(Request $request){
 	}
 }
 
-    /*public function newAffaire(){
-    	$newaffaire = new Affaire();
-    	$newaffaire->user_id = Auth::id();
-    	$newaffaire->presentation = "Voici ma nouvelle affaire";
-    	$newaffaire->type ="pénal";
-    	$newaffaire->frais = 10000;
-    	$newaffaire->resultat="win";
-
-    	$newaffaire->save();
-    }
-
-    public function listeAffaires(){
-    	$affaires = Affaire::all();
-    	return view('affaire', ['affaires' => $affaires]);// dd($affaires);
-
-    }*/
 }

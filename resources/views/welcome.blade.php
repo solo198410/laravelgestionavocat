@@ -68,7 +68,7 @@
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
-                        <a href="{{ url('/') }}">Home</a>
+                        <a href="{{ url('/affaires') }}">SGCA</a>
                     @else
                         <a href="{{ route('login') }}">Login</a>
 
@@ -80,9 +80,13 @@
             @endif
 
             <div class="content">
-                <div class="title m-b-md">
+                <!--<div class="title m-b-md">
                     Système de Gestion du Cabinet d'Avocat
-                </div>
+                </div> -->
+                
+
+                
+
 
                 <!--<div class="links">
                     <a href="https://laravel.com/docs">Docs</a>

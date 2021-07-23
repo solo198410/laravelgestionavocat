@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+//use App\Autoritesjudiciaire;
 
 use Illuminate\Database\Eloquent\SoftDeletes;
 use Illuminate\Database\Eloquent\Model;
@@ -11,6 +12,10 @@ class Affaire extends Model
 
     public function user(){
         return $this->belongsTo('App\User');
+    }
+    
+    public function autoritesjudiciaire(){
+        return $this->belongsTo('App\Autoritesjudiciaire');
     }
 
     public function clients(){
